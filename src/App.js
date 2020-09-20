@@ -5,6 +5,8 @@ import Home from './components/home';
 //import { ItemCounterClass } from './components/itemCountClass';
 //import { CounterFunction } from './components/itemCountFunction';
 import { ItemCounter} from './components/itemCount.jsx';
+//import ItemList from './components/itemList';
+//import Item from './components/item';
 
 function App() {
   return (
@@ -15,7 +17,7 @@ function App() {
           <ItemCounter />          
         </div>
       <main>
-          <Home greeting="Te paso un prop!" />
+          <Home greeting="nose" />
       </main>
     </div>
   );

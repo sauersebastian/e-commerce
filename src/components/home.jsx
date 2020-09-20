@@ -11,7 +11,7 @@ class Home extends React.Component {
         return <div className="home">
             <Card border="dark" style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title>Paso un parametro</Card.Title>
+                <Card.Title>Producto</Card.Title>
                 <Card.Text>
                     {greeting}
                 </Card.Text>
