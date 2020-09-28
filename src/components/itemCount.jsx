@@ -2,8 +2,7 @@ import React from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-
-export class ItemCounter extends React.Component {
+export default class ItemCounter extends React.Component {
 
     constructor(){
         super();
@@ -11,10 +10,11 @@ export class ItemCounter extends React.Component {
             count: 0
         }
 
-        this.minCounter = 0;    // limite min
-        this.maxCounter = 10;   // limite max
+        this.minCounter =  0  // limite min
+        this.maxCounter =  10 // limite max
     }
 
+   
 
     handleAdd = () => {
         if(this.state.count < this.maxCounter) {
@@ -32,12 +32,13 @@ export class ItemCounter extends React.Component {
         }
     }
 
+
     render() {
     return (
         <div>
         <div>
             <Button onClick={this.handleSubstract} sign={"-"}/>
-            <Input count={this.state.count} handleChange={this.handleChange}/>
+            <Input count={this.state.count} />
             <Button onClick={this.handleAdd} sign={"+"}/>
         </div>
         <div>

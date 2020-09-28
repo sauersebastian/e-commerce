@@ -1,39 +1,23 @@
-import React, { useState, useEffect} from "react";
-//import Home from './home';
-import ItemList from './itemList';
-import { productosFile } from './productos';
+import React from "react";
+import { Card } from 'react-bootstrap';
 
-function getItems() {
-
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve(productosFile);
-        }, 2000);
-    });
-}
+export default function Item (props) {
+    const { name, desc, price } = props.product;
 
 
-export default function Item() {
-
-    const [items, setItems] = useState([])
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        getItems().then(products => {
-            setItems(products);
-            setLoading(false);
-        });
-    }, []);
-
-
-    if(loading){
-        return <pr>Cargando...</pr>;
-    } else {
-        return (
-            <React.Fragment>
-                {loading && <pr>Cargando...</pr>}
-                {!loading && <ItemList items={items} />}
-            </React.Fragment>
-        )
-    }
+    return (
+        <div className="home">
+            <Card border="dark" style={{ width: '18rem' }}>
+            <Card.Body>
+                <Card.Title>{name}</Card.Title>
+                <Card.Text>
+                    {desc}
+                </Card.Text>
+                <Card.Text>
+                    ${price}
+                </Card.Text>
+            </Card.Body>
+            </Card>
+        </div>
+    )
 }
