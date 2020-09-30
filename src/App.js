@@ -1,19 +1,35 @@
 import React from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar';
 import Home from './components/home';
-//import { ItemCounterClass } from './components/itemCountClass';
-//import { CounterFunction } from './components/itemCountFunction';
-//import { ItemCounter} from './components/itemCount.jsx';
-//import ItemList from './components/itemList';
-//import ItemListContainer from './components/itemListContainer';
+//import Item from './components/item'
+import { productosFile } from './components/productos'
+import ItemDetailContainer from './components/itemDetailContainer';
+import Cart from './components/Cart';
+
 
 function App() {
+  console.log("app");
+  console.log(productosFile);
   return (
     <div className="App">
-      <Navbar />
-      <Home />
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path='/item/:id'>
+            <ItemDetailContainer product={productosFile} />
+          </Route>
+          <Route path='/cart'>
+            <Cart />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
+    
   );
 }
 

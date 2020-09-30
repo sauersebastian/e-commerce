@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ItemDetail from "./itemDetail";
 
 
@@ -6,19 +7,20 @@ import ItemDetail from "./itemDetail";
 export default function ItemDetailContainer(props) {
     const [item, setItem] = useState ();
     const [loading, setLoading] = useState(true);
-    
+
+    const { id } = useParams();
+
     function getItem () {
         return new Promise((res) => {
             setTimeout(() => {
-                res(props.product);
+                // eslint-disable-next-line eqeqeq
+                res(props.product.find(x => (x.id) == (id)));
             }, 3000);
         });
     }
 
     useEffect(() => {
-        getItem ()
-            .then((data) => {
-                console.log("data");
+        getItem().then((data) => {
                 setItem(data);
                 setLoading(false);
             })
