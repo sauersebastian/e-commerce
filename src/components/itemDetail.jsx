@@ -1,22 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Item from "./item";
 import ItemCount from "./itemCount";
 import Button from "./Button";
-//import { useParams } from 'react-router-dom';
+
 
 
 export default function ItemDetail(props) {
   
-    const onClick = () => {
-        console.log("El boton fue apretado");
+    const [count, setCount] = useState(0);
+
+    function addCount() {
+        if (props.product.stock > count)
+            setCount(count + 1);
     }
 
+    function subCount() {
+        if (count > 0)
+            setCount(count - 1);
+    }
    
     return (
         <div>
             <Item product={props.product} /> 
-            <ItemCount />
-            <Button onClick={onClick} sign={"Comprar ahora"} />
+            <ItemCount addCount={addCount} subCount={subCount} count={count}/>
+            <Button sign={"Comprar " + count +" ahora "} />
         </div>
     )
 }
