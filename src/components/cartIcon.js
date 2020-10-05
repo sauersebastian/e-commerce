@@ -8,12 +8,11 @@ export function CartIcon(){
   // eslint-disable-next-line no-unused-vars
   const { length } = useCartContext();
 
-  console.log("AAAAAAAAA" + length());
 
-
-    return (
+  return (
     <Badge badgeContent = {length()} color="secondary">
+      {console.log("ITEMS IN CART: " + length())}
       <ShoppingCartIcon />
     </Badge>
-    );
+  );
 }

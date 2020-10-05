@@ -23,6 +23,7 @@ export default function ItemDetail(props) {
         const product = props.product;
         console.log(product);
         addItem(product, count);
+        setCount(1);
     }
 
     useEffect(() => {

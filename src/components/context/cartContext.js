@@ -22,13 +22,18 @@ export const CartProvider = (props) => {
     }
 
     const length = () => cart.reduce((total, current) => {
-        return total + current.count;
+        console.log("total: " + total +" current count :" + current.count );
+        return (total + current.count);
     }, 0);
 
     const clearCart = () => setCart([]);
 
+    const totalPrice = () => cart.reduce((total, current) => {
+        return total + current.count * current.product.price;
+      }, 0);
+
     return(
-        <CartContext.Provider value={{ cart, addItem, removeItem, length, clearCart }}>
+        <CartContext.Provider value={{ cart, addItem, removeItem, length, clearCart, totalPrice }}>
             {props.children}
         </CartContext.Provider>
     )

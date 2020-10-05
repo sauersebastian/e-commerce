@@ -14,24 +14,23 @@ function App() {
   
   return (
     <div className="App">
-      <BrowserRouter>
-        <CartProvider>
+      <CartProvider>
+        <BrowserRouter>  
+          
           <Navbar />
-        </CartProvider>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <CartProvider>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
             <Route path='/item/:id'>
               <ItemDetailContainer product={productosFile} />
             </Route>
             <Route path='/cart'>
               <Cart />
             </Route>
-          </CartProvider>
-        </Switch>
+          </Switch>
       </BrowserRouter>
+      </CartProvider>
     </div>
     
   );
