@@ -3,29 +3,33 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar';
 import Home from './components/home';
-//import Item from './components/item'
 import { productosFile } from './components/productos'
 import ItemDetailContainer from './components/itemDetailContainer';
 import Cart from './components/Cart';
+import { CartProvider } from './components/context/cartContext'
 
 
 function App() {
-  console.log("app");
-  console.log(productosFile);
+  
+  
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <CartProvider>
+          <Navbar />
+        </CartProvider>
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path='/item/:id'>
-            <ItemDetailContainer product={productosFile} />
-          </Route>
-          <Route path='/cart'>
-            <Cart />
-          </Route>
+          <CartProvider>
+            <Route path='/item/:id'>
+              <ItemDetailContainer product={productosFile} />
+            </Route>
+            <Route path='/cart'>
+              <Cart />
+            </Route>
+          </CartProvider>
         </Switch>
       </BrowserRouter>
     </div>

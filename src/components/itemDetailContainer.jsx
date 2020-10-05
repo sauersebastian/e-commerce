@@ -28,9 +28,7 @@ export default function ItemDetailContainer(props) {
     }, );
 
 
-    return loading ? (
-        <p>Cargando...</p>
-    ) : (
+    return loading ? (<p>Cargando...</p>) : (
         <div>
             <ItemDetail product={item} />
         </div>

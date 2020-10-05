@@ -1,17 +1,24 @@
-import React, { useContext } from 'react';
-import { CartContext } from './context/cartContext'
+import React from 'react';
+import { useCartContext } from './context/cartContext'
+import { ListGroup } from 'react-bootstrap';
 
 
 export default function Cart() {
 
-    const [cart, setCart] = useContext(CartContext);
+    // eslint-disable-next-line no-unused-vars
+    const { cart } = useCartContext();
 
     return (
         <div>
             <h2>Carrito</h2>
-            <span>Items en el carrito: {cart.length}</span>
-            <br></br>
-            <span>Precio Total: 0</span>
+            <ListGroup>
+                {
+                     cart.map(function(item) {
+                         console.log(cart);
+                        return (<ListGroup.Item>{"Cantidad: " + item.count + " - " + item.product.name + ": " + item.product.desc}</ListGroup.Item>)
+                    })
+                }
+            </ListGroup>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ItemDetail from './itemDetail';
+import Item from './item';
 
 export default function ItemList(props) {
 
@@ -7,8 +7,8 @@ export default function ItemList(props) {
        return (
         <div>
             {productos.map((product) => {
-                return (
-                    <ItemDetail key={product.id} product={product} />
+                return (        
+                    <Item key={product.id} product={product} />
                 )
             })}
         </div>

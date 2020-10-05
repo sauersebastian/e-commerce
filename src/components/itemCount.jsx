@@ -3,9 +3,6 @@ import Button from "./Button";
 import Input from "./Input";
 
 export default function ItemCount({count, addCount, subCount}){
-
-    console.log("AAAAAAAAAAAAAA");
-    console.log(count);
     
     return (
         <div>
