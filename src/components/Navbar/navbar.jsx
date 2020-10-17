@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { CartIcon } from './cartIcon';
+import { CartIcon } from '../CartIcon/cartIcon';
 import { NavLink } from 'react-router-dom';
 
 class Navbar extends React.Component{
