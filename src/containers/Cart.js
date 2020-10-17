@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCartContext } from './context/cartContext'
+import { useCartContext } from '../context/cartContext'
 import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
 

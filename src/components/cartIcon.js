@@ -1,7 +1,7 @@
 import React from "react";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import { useCartContext } from './context/cartContext';
+import { useCartContext } from '../context/cartContext';
 
 export function CartIcon(){
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar';
-import Home from './components/home';
-import { productosFile } from './components/productos'
-import ItemDetailContainer from './components/itemDetailContainer';
-import Cart from './components/Cart';
-import { CartProvider } from './components/context/cartContext'
+import Home from './containers/home';
+import ItemDetailContainer from './containers/itemDetailContainer';
+import Cart from './containers/Cart';
+import { CartProvider } from './context/cartContext'
+import ItemListContainer from './containers/itemListContainer';
 
 
 function App() {
@@ -16,14 +16,17 @@ function App() {
     <div className="App">
       <CartProvider>
         <BrowserRouter>  
-          
           <Navbar />
           <Switch>
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path='/item/:id'>
-              <ItemDetailContainer product={productosFile} />
+            <Route exact path='/categories/:id'>
+              <ItemListContainer />
+            </Route>
+            <Redirect from='/item/:id' to='/categories/item/:id' />
+            <Route exact path='/categories/item/:id'>
+              <ItemDetailContainer />
             </Route>
             <Route path='/cart'>
               <Cart />

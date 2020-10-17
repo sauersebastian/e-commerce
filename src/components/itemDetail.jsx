@@ -1,8 +1,7 @@
 import React, { useState, useEffect} from "react";
-import Item from "./item";
 import ItemCount from "./itemCount";
 import Button from "./Button";
-import { useCartContext } from "./context/cartContext";
+import { useCartContext } from "../context/cartContext";
 
 export default function ItemDetail(props) {
   
@@ -32,9 +31,23 @@ export default function ItemDetail(props) {
    
     return (
         <div>
-            <Item product={props.product} /> 
-            <ItemCount addCount={addCount} subCount={subCount} count={count}/>
-            <Button onClick={addToCart} sign={"Comprar " + count +" ahora "} />
+            {console.log("AAAA " + props.product.name)}
+            
+            <div className="container">
+            <div className="card flex-row flex-wrap">
+                <div className="card-header border-0">
+                    <img src={props.product.img} alt=""></img>
+                </div>
+                <div className="card-block px-2">
+                    <h4 className="card-title">{props.product.name}</h4>
+                    <h4 className="card-title">${props.product.price}</h4>
+                    <p className="card-text">{props.product.desc}</p>
+                    <ItemCount addCount={addCount} subCount={subCount} count={count}/>
+                    <Button onClick={addToCart} sign={"Comprar " + count +" ahora "} />           
+                </div>
+                <div className="w-100"></div>
+            </div>
+            </div>
         </div> 
     )
 }

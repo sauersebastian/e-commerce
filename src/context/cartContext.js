@@ -22,14 +22,13 @@ export const CartProvider = (props) => {
     }
 
     const length = () => cart.reduce((total, current) => {
-        console.log("total: " + total +" current count :" + current.count );
-        return (total + current.count);
+        return total + current.count;
     }, 0);
 
     const clearCart = () => setCart([]);
 
     const totalPrice = () => cart.reduce((total, current) => {
-        return total + current.count * current.product.price;
+        return (total + current.count * parseFloat(current.product.price));
       }, 0);
 
     return(

@@ -13,21 +13,15 @@ class Navbar extends React.Component{
           </button>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <NavLink to={`/item/1`}>
-              <li className="nav-item active">
-                <a className="nav-link">Item 1 <span className="sr-only">(current)</span></a>
+              <li class="nav-item active dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Categorias
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <p><NavLink to={`/categories/yoga`}>Yoga</NavLink></p>
+                  <p><NavLink to={`/categories/fitness`}>Fitness</NavLink></p>
+                </div>
               </li>
-              </NavLink>
-              <NavLink to={`/item/2`}>
-              <li className="nav-item active">
-                <a className="nav-link">Item 2</a>
-              </li>
-              </NavLink>
-              <NavLink to={`/item/3`}>
-              <li className="nav-item active">
-                <a className="nav-link">Item 3</a>
-              </li>
-              </NavLink>
             </ul>
           </div>
           <NavLink to={`/cart`}><CartIcon /></NavLink>
