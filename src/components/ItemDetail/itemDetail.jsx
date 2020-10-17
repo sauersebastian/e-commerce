@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
-import ItemCount from "./itemCount";
-import Button from "./Button";
-import { useCartContext } from "../context/cartContext";
+import ItemCount from "../ItemCount/itemCount";
+import Button from "../Button/Button";
+import { useCartContext } from "../../context/cartContext";
 
 export default function ItemDetail(props) {
   

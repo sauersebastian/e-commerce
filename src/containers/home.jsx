@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import './home.scss';
-import ItemList from '../components/itemList';
+import ItemList from '../components/ItemList/itemList';
 import { getFirestore } from '../firebase';
 
 export default function Home () {

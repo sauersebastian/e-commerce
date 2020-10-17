@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import './App.css';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar/navbar';
 import Home from './containers/home';
 import ItemDetailContainer from './containers/itemDetailContainer';
 import Cart from './containers/Cart';
