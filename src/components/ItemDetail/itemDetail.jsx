@@ -2,6 +2,8 @@ import React, { useState, useEffect} from "react";
 import ItemCount from "../ItemCount/itemCount";
 import Button from "../Button/Button";
 import { useCartContext } from "../../context/cartContext";
+import { Media } from "react-bootstrap";
+//import "./itemDetail.css";
 
 export default function ItemDetail(props) {
   
@@ -31,23 +33,22 @@ export default function ItemDetail(props) {
    
     return (
         <div>
-            {console.log("AAAA " + props.product.name)}
-            
-            <div className="container">
-            <div className="card flex-row flex-wrap">
-                <div className="card-header border-0">
-                    <img src={props.product.img} alt=""></img>
-                </div>
-                <div className="card-block px-2">
-                    <h4 className="card-title">{props.product.name}</h4>
-                    <h4 className="card-title">${props.product.price}</h4>
-                    <p className="card-text">{props.product.desc}</p>
+            <Media>
+                <img
+                    width={300}
+                    height={300}
+                    className="mr-3"
+                    src={props.product.img}
+                    alt=""
+                />
+                <Media.Body>
+                    <h4>{props.product.name}</h4>
+                    <h4>{props.product.price}</h4>
+                    <p>{props.product.desc}</p>
                     <ItemCount addCount={addCount} subCount={subCount} count={count}/>
-                    <Button onClick={addToCart} sign={"Comprar " + count +" ahora "} />           
-                </div>
-                <div className="w-100"></div>
-            </div>
-            </div>
+                    <Button onClick={addToCart} sign={"Comprar " + count +" ahora "} />  
+                </Media.Body>
+            </Media>
         </div> 
     )
 }

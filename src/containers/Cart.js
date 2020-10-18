@@ -2,6 +2,7 @@ import React from 'react';
 import { useCartContext } from '../context/cartContext'
 import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
+import Button from '../components/Button/Button'
 
 
 export default function Cart() {
@@ -15,14 +16,15 @@ export default function Cart() {
                 <h2> Tienes {length() === 1 ? length()+" item" : length()+" items"} en tu carrito</h2>
                 {cart.map(cartItem => (
                     <>
-                        {console.log(cartItem.product)}
-                        {console.log(cart)}
                         <ListGroup.Item> 
                             Cantidad: {cartItem.count + " -  Nombre: " + cartItem.product.name} 
                         </ListGroup.Item>
                     </>
                 ))}
                 <h2>Total: ${totalPrice()}</h2>
+                <Link to={`/checkout`}>
+                    <Button sign={"IR A FINALIZAR LA COMPRA"}> </Button>
+                </Link>
             </ListGroup>
         );
     };
