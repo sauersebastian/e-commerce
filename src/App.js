@@ -7,6 +7,7 @@ import ItemDetailContainer from './containers/itemDetailContainer';
 import Cart from './containers/Cart';
 import { CartProvider } from './context/cartContext'
 import ItemListContainer from './containers/itemListContainer';
+import Checkout from './containers/checkout';
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path='/cart'>
               <Cart />
+            </Route>
+            <Route exact path='/checkout'>
+              <Checkout />
             </Route>
           </Switch>
       </BrowserRouter>
