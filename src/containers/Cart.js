@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCartContext } from '../context/cartContext'
 import { Link } from 'react-router-dom';
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Container } from 'react-bootstrap';
 import Button from '../components/Button/Button'
 
 
@@ -12,20 +12,27 @@ export default function Cart() {
 
     const ItemsInCart = () => {
         return (
-            <ListGroup>
-                <h2> Tienes {length() === 1 ? length()+" item" : length()+" items"} en tu carrito</h2>
-                {cart.map(cartItem => (
-                    <>
-                        <ListGroup.Item> 
-                            Cantidad: {cartItem.count + " -  Nombre: " + cartItem.product.name} 
-                        </ListGroup.Item>
-                    </>
-                ))}
-                <h2>Total: ${totalPrice()}</h2>
-                <Link to={`/checkout`}>
-                    <Button sign={"IR A FINALIZAR LA COMPRA"}> </Button>
-                </Link>
-            </ListGroup>
+            <Container>
+                <h3> Tienes {length() === 1 ? length()+" item" : length()+" items"} en tu carrito</h3>
+                <br></br>
+                <ListGroup>
+                    {cart.map(cartItem => (
+                        <>
+                            <ListGroup.Item classname="">
+                                {cartItem.product.name + "- " + 
+                                "$" + cartItem.product.price + " x " + cartItem.count + " = $" + (cartItem.count* parseFloat(cartItem.product.price))}
+                            </ListGroup.Item>
+                        </>
+                    ))}
+                </ListGroup>
+                <br></br>
+                <ListGroup>
+                    <h4>Total: ${totalPrice()}</h4>
+                    <Link to={`/checkout`}>
+                        <Button sign={"IR A FINALIZAR LA COMPRA"}> </Button>
+                    </Link>
+                </ListGroup>
+            </Container>
         );
     };
 
