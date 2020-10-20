@@ -43,7 +43,7 @@ export default function ItemDetail(props) {
                 />
                 <Media.Body>
                     <h4>{props.product.name}</h4>
-                    <h4>{props.product.price}</h4>
+                    <h4>${props.product.price}</h4>
                     <p>{props.product.desc}</p>
                     <ItemCount addCount={addCount} subCount={subCount} count={count}/>
                     <Button onClick={addToCart} sign={"Comprar " + count +" ahora "} />  
