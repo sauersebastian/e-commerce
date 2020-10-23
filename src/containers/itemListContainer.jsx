@@ -2,16 +2,22 @@ import React, { useState, useEffect} from "react";
 import ItemList from '../components/ItemList/itemList';
 import { getFirestore } from '../firebase/';
 import { useParams } from "react-router-dom";
+import { Spinner, Container } from "react-bootstrap";
 
 export default function ItemListContainer() {
 
     const { id } = useParams()  
     const [items, setItems] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
 
     useEffect(() => {
-        setLoading(false);
+
+        // eslint-disable-next-line no-unused-vars
+        const timer = setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+        
         const db = getFirestore();
         const categoryCollection = db.collection("categories").doc(id);
         const itemCollection = db.collection("items").where('categoryId', '==', categoryCollection);
@@ -32,14 +38,8 @@ export default function ItemListContainer() {
         })
     }, [id]);
  
-    if(loading){
-        return <pr>Cargando...</pr>;
-    } else {
-        return (
-            <React.Fragment>
-                {loading && <pr>Cargando...</pr>}
-                {!loading && <ItemList items={items} />}
-            </React.Fragment>
-        )
-    }
+
+    return !loading ? <Spinner animation="border" variant="warning" /> : (
+        <ItemList items={items} />
+    )
 }

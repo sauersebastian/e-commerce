@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container, Row, Col,Card } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import "./itemList.css";
+
 
 export default function ItemList(props) {
 
@@ -10,20 +12,23 @@ export default function ItemList(props) {
         <Row>
             {productos.map(product => {
                return(<Col>           
-                    <Card border="dark" style={{ width: '18rem'}}>
+                    <Card border="light" style={{ width: '18rem'}}>
                     <NavLink to={`item/${product.id}`}>
-                    <Card.Img variant="top" src={product.img} />
+                    <Card.Img className="card-img" variant="top" src={product.img} />
+                    </NavLink>
                     <Card.Body>
-                        <Card.Title>{product.name}</Card.Title>
+                        <NavLink to={`item/${product.id}`}>
+                            <Card.Title>{product.name}</Card.Title>
+                        </NavLink>
                         <Card.Text>
-                            ${product.price}
+                            <strong>$ {product.price}</strong>
                         </Card.Text>
                     </Card.Body>
-                    </NavLink>
                     </Card>
                 </Col>
             )})}
         </Row>
+        <br></br>
         </Container>
     )
 }

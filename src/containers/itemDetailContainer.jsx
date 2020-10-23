@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import ItemDetail from "../components/ItemDetail/itemDetail";
 import { getFirestore } from "../firebase";
+import { Spinner } from "react-bootstrap";
 
 
 
 export default function ItemDetailContainer() {
     const { id } = useParams();
     const [item, setItem] = useState({});
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        console.log("ID ITEM: " + id);
-        setLoading(false)
+
+        // eslint-disable-next-line no-unused-vars
+        const timer = setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+
         const db = getFirestore()
         const itemCollection = db.collection('items');
         const prod = itemCollection.doc(id);
@@ -33,7 +38,7 @@ export default function ItemDetailContainer() {
         })
     }, [id]);
 
-    return loading ? (<p>Cargando...</p>) : (
+    return !loading ? (<Spinner animation="border" variant="warning" />) : (
         <div>
             <ItemDetail product={item} />
         </div>

@@ -2,16 +2,22 @@ import React, { useState, useEffect} from "react";
 import './home.scss';
 import ItemList from '../components/ItemList/itemList';
 import { getFirestore } from '../firebase';
+import { Spinner, Container } from "react-bootstrap";
 
 export default function Home () {
 
     const [items, setItems] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     
 
     useEffect(() => {
-        setLoading(false);
+
+        // eslint-disable-next-line no-unused-vars
+        const timer = setTimeout(() => {
+            setLoading(true);
+        }, 1000);
+
         const db = getFirestore();
         const itemCollection = db.collection("items");
         itemCollection.get()
@@ -32,14 +38,9 @@ export default function Home () {
     }, []);
 
  
-    if(loading){
-        return <pr>Cargando...</pr>;
-    } else {
-        return (
-            <React.Fragment>
-                {loading && <pr>Cargando...</pr>}
-                {!loading && <ItemList items={items} />}
-            </React.Fragment>
-        )
-    }
+    return !loading ? <Spinner animation="border" variant="warning" /> : (
+        <Container>
+            <ItemList items={items} />
+        </Container>
+    )
 }

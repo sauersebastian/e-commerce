@@ -25,14 +25,14 @@ export const CartProvider = (props) => {
         return total + current.count;
     }, 0);
 
-    const clearCart = () => setCart([]);
+    const cleanCart = () => setCart([]);
 
     const totalPrice = () => cart.reduce((total, current) => {
         return (total + current.count * parseFloat(current.product.price));
       }, 0);
 
     return(
-        <CartContext.Provider value={{ cart, addItem, removeItem, length, clearCart, totalPrice }}>
+        <CartContext.Provider value={{ cart, addItem, removeItem, length, cleanCart, totalPrice }}>
             {props.children}
         </CartContext.Provider>
     )

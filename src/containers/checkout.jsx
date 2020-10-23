@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container , Row, Form, Col, Button, ListGroup } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Container , Row, Form, Col, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { useCartContext } from '../context/cartContext';
 import * as firebase from 'firebase/app';
 import { getFirestore } from '../firebase/';
@@ -8,8 +8,8 @@ import { Redirect } from "react-router-dom";
 
 export default function Checkout() {
 
-    const { cart, totalPrice, length } = useCartContext();
-    const { register, handleSubmit } = useForm();
+    const { cart, totalPrice, length, cleanCart } = useCartContext();
+    const { register, errors, handleSubmit } = useForm();
     const [loading, setLoading] = useState(false);
     
 
@@ -31,9 +31,17 @@ export default function Checkout() {
             console.log('Error saving info: ', err);
         })
         .finally(() => {
-            setLoading(true);
+            cleanCart();
+            setLoading(false);
         });
 
+    })
+
+    useEffect (() => {
+        // eslint-disable-next-line no-unused-vars
+        const timer = setTimeout(() => {
+            setLoading(true);
+        }, 1000);
     })
 
     function CheckoutOrder() {
@@ -72,6 +80,7 @@ export default function Checkout() {
                             <Form.Group controlId="formGridAddress1">
                                 <Form.Label>Dirección</Form.Label>
                                 <Form.Control name="adress1" placeholder="Nombre de la calle y altura" ref={register}/>
+                                {errors.firstName && "First name is required"}
                             </Form.Group>
 
                             <Form.Group controlId="formGridAddress2">
@@ -126,5 +135,16 @@ export default function Checkout() {
         );
     }
 
-    return (length()===0) ? (<Redirect to={`/`} />) : (<CheckoutOrder />)
+    if (length()===0) {
+        return <Redirect to={`/`} />
+    } 
+    else {
+        if (!loading){
+            return <Spinner animation="border" variant="warning" />
+        }
+        else {
+            return <CheckoutOrder />
+        }
+
+    }
 }
