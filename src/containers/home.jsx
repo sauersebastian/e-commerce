@@ -16,7 +16,7 @@ export default function Home () {
         // eslint-disable-next-line no-unused-vars
         const timer = setTimeout(() => {
             setLoading(true);
-        }, 1000);
+        }, 3000);
 
         const db = getFirestore();
         const itemCollection = db.collection("items");

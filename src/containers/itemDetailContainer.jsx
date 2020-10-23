@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ItemDetail from "../components/ItemDetail/itemDetail";
 import { getFirestore } from "../firebase";
 import { Spinner } from "react-bootstrap";
+import Error from "../pages/error"
 
 
 
@@ -10,6 +11,7 @@ export default function ItemDetailContainer() {
     const { id } = useParams();
     const [item, setItem] = useState({});
     const [loading, setLoading] = useState(false);
+    const [itemFound, setItemFound] = useState(false);
 
     useEffect(() => {
 
@@ -25,9 +27,11 @@ export default function ItemDetailContainer() {
         prod.get()
         .then((doc) => {
             if(!doc.exists) {
-                console.log("Item does not exist!");
+                setItemFound(false);
+            }else{
+                setItemFound(true);
+                setItem({ id: doc.id, ...doc.data() });
             }
-            console.log('Item found!');
             setItem({ id: doc.id, ...doc.data() });
         })
         .catch((error) => {
@@ -38,11 +42,16 @@ export default function ItemDetailContainer() {
         })
     }, [id]);
 
-    return !loading ? (<Spinner animation="border" variant="warning" />) : (
-        <div>
-            <ItemDetail product={item} />
-        </div>
-    )
+       if(!loading){
+        return <Spinner animation="border" variant="warning" />
+    }
+    else{
+        if(itemFound){
+            return <ItemDetail product={item} />
+        }
+        else
+            return <Error/>
+    }
 
 
 }

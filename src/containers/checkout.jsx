@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Container , Row, Form, Col, Button, ListGroup, Spinner } from 'react-bootstrap';
+import { Alert, Container , Row, Form, Col, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { useCartContext } from '../context/cartContext';
 import * as firebase from 'firebase/app';
 import { getFirestore } from '../firebase/';
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
+
+const createAlert = ((id) => {
+    return <Alert vartiant="success"> Compra exitosa, su numero de orden es: {id}</Alert>
+})
 
 export default function Checkout() {
 
@@ -25,7 +29,7 @@ export default function Checkout() {
 
         orders.add(newOrder)
         .then(({ id }) => {
-            console.log("ID DOCUMENTO: " + id);
+            createAlert(id);
         })
         .catch(err => {
             console.log('Error saving info: ', err);
@@ -121,7 +125,7 @@ export default function Checkout() {
                             {cart.map(cartItem => (
                                 <>
                                     <ListGroup.Item> 
-                                        {cartItem.product.name + " x " + cartItem.count} 
+                                        {cartItem.product.name + " x " + cartItem.count + " uds."} 
                                     </ListGroup.Item>
                                 </>
                             ))}
@@ -135,7 +139,7 @@ export default function Checkout() {
         );
     }
 
-    if (length()===0) {
+    if (!length()) {
         return <Redirect to={`/`} />
     } 
     else {

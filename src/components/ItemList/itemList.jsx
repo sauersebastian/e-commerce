@@ -6,15 +6,17 @@ import "./itemList.css";
 
 export default function ItemList(props) {
 
+
+
     const productos = props.items;
     return (
-        <Container>
-        <Row>
+        <Container classname="conteinerList">
+        <Row className="justify-content-md-center">
             {productos.map(product => {
-               return(<Col>           
+               return(<Col lg={true}>           
                     <Card border="light" style={{ width: '18rem'}}>
                     <NavLink to={`item/${product.id}`}>
-                    <Card.Img className="card-img" variant="top" src={product.img} />
+                        <Card.Img className="card-img" variant="top" src={product.img} />
                     </NavLink>
                     <Card.Body>
                         <NavLink to={`item/${product.id}`}>

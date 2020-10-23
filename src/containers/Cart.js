@@ -19,6 +19,7 @@ export default function Cart() {
         }, 1000);
     })
 
+    
     const ItemsInCart = () => {
         return (
             <Container>
@@ -30,9 +31,8 @@ export default function Cart() {
                             <ListGroup.Item classname="">
                                 {cartItem.product.name + "- " + 
                                 "$" + cartItem.product.price + " x " + cartItem.count + " = $" + (cartItem.count* parseFloat(cartItem.product.price))}
-
                             </ListGroup.Item>
-                            {/*<Button onClick={remItem(cartItem.product)} sign={"Eliminar producto"}> </Button>*/}
+                            {<Button onClick={() =>removeItem(cartItem.product)} sign={"Eliminar producto"}> </Button>}
                         </>
                     ))}
                 </ListGroup>
