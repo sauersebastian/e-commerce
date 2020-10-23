@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import ItemList from '../components/ItemList/itemList';
 import { getFirestore } from '../firebase/';
 import { useParams } from "react-router-dom";
-import { Spinner, Container } from "react-bootstrap";
+import { Spinner } from "react-bootstrap";
 
 export default function ItemListContainer() {
 

@@ -1,0 +1,50 @@
+.navbar {
+    color: #ff7e30;
+    background-color: #ff7e30;
+}
+
+.navbar-brand{
+    color: white;
+}
+.navbar-brand:link{
+    color: white;
+}
+.navbar-brand:visited{
+    color: white;
+}
+.navbar-brand:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+.nav-link{
+    color: white;
+}
+
+.nav-link:visited{
+    color: white;
+}
+.nav-link:hover{
+    color: white;
+    text-decoration: underline;
+}
+.nav-link:active{
+    color: white;
+    text-decoration: underline;
+}
+
+.dropdown-item:hover{
+    color:  #ff7e30;
+    text-decoration: underline;
+}
+.dropdown-item:active{
+    color:  #ff7e30;
+    background-color: white;
+}
+.dropdown-item:visited{
+    color:  #ff7e30;
+    background-color: white;
+}
+.dropdown-item:link{
+    color:  #ff7e30;
+}

@@ -1,13 +1,13 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import ItemCount from "../ItemCount/itemCount";
-import Button from "../Button/Button";
 import { useCartContext } from "../../context/cartContext";
-import { Media } from "react-bootstrap";
+import { Button, Card, Row, Col, Container } from "react-bootstrap";
 import "./itemDetail.css";
 
 export default function ItemDetail(props) {
   
     const [count, setCount] = useState(1);
+    // eslint-disable-next-line no-unused-vars
     const { cart, addItem } = useCartContext();
 
     function addCount() {
@@ -22,28 +22,81 @@ export default function ItemDetail(props) {
 
     const addToCart = () => {
         const product = props.product;
-        console.log(product);
         addItem(product, count);
         setCount(1);
     }
 
-    useEffect(() => {
-        console.log(cart);
-    }, [cart]);
-   
-    return (
-        <div>
-            <Media>
-                <img className="photo" src={props.product.img} alt="" />
-                <Media.Body>
-                    <h4>{props.product.name}</h4>
-                    <h4>${props.product.price}</h4>
-                    <p>{props.product.desc}</p>
-                    <ItemCount addCount={addCount} subCount={subCount} count={count}/>
-                    <br></br>
-                    <Button onClick={addToCart} sign={"Comprar " + count +" ahora "} />
-                </Media.Body>
-            </Media>
-        </div> 
-    )
+    function ItemWithStock() {
+        console.log(props.product.stock);
+        return (
+            <div>
+                <Container>
+                    <Card>
+                        <Row>
+                            <Col>
+                                <Card.Img classname="photo" variant="top" src={props.product.img} alt=""/>
+                            </Col>
+                            <Col>
+                                <Card.Body>
+                                    <Card.Title><h2>{props.product.name}</h2></Card.Title>
+                                    <Card.Title>$ {props.product.price}</Card.Title>
+                                    <br></br>
+                                    <strong>Descripción</strong>
+                                    <Card.Text>{props.product.desc}</Card.Text>
+                                    <strong>Stock:</strong> {props.product.stock} unidades.
+                                    <br></br>
+                                    <Container>
+                                    <br></br>
+                                    <br></br>
+                                        <Row>
+                                            <Col xs={4}>
+                                                <ItemCount addCount={addCount} subCount={subCount} count={count} max={props.product.stock}/>
+                                            </Col>
+                                            <Col>
+                                                <Button variant="primary" onClick={addToCart}>Comprar {count} ahora</Button>
+                                            </Col>
+                                        </Row>
+                                    </Container>
+                                </Card.Body>  
+                            </Col>
+                        </Row>
+                    </Card>
+                </Container>
+            </div> 
+        )
+    }
+
+    function ItemWithoutStock() {
+        console.log(props.product.stock);
+        return (
+            <div>
+                <Container>
+                    <Card>
+                        <Row>
+                            <Col>
+                                <Card.Img classname="photo" variant="top" src={props.product.img} alt=""/>
+                            </Col>
+                            <Col>
+                                <Card.Body>
+                                    <Card.Title><h2>{props.product.name}</h2></Card.Title>
+                                    <Card.Title>$ {props.product.price}</Card.Title>
+                                    <br></br>
+                                    <strong>Descripción</strong>
+                                    <Card.Text>{props.product.desc}</Card.Text>
+                                    <strong>Stock:</strong> {props.product.stock} unidades.
+                                    <br></br>
+                                    <Container>
+                                    <br></br>
+                                    <br></br>
+                                    </Container>
+                                </Card.Body>  
+                            </Col>
+                        </Row>
+                    </Card>
+                </Container>
+            </div> 
+        )
+    }
+
+    return (props.product.stock > 0) ? <ItemWithStock /> : <ItemWithoutStock />
 }
