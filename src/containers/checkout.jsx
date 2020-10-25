@@ -1,23 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Container , Row, Form, Col, Button, ListGroup, Spinner } from 'react-bootstrap';
+import { Container , Row, Form, Col, Button, ListGroup, Spinner } from 'react-bootstrap';
 import { useCartContext } from '../context/cartContext';
 import * as firebase from 'firebase/app';
 import { getFirestore } from '../firebase/';
 import { useForm } from "react-hook-form";
 import { Redirect } from "react-router-dom";
 
-const createAlert = ((id) => {
-    return <Alert vartiant="success"> Compra exitosa, su numero de orden es: {id}</Alert>
-})
+
 
 export default function Checkout() {
 
     const { cart, totalPrice, length, cleanCart } = useCartContext();
-    const { register, errors, handleSubmit } = useForm();
+    const { register, errors, handleSubmit} = useForm();
+    const [user, setUser] = useState([])
     const [loading, setLoading] = useState(false);
-    
+    const [idUser, setIduser] = useState('');
 
-    const onSubmit = ((user) => {
+    async function updateStock(order, cart, id){
+        const db = getFirestore();
+        const batch = db.batch();
+        const items = order.items.map(i => ({ id: i.product.id, count: i.count}));
+        console.log(items);
+        console.log(items.length);
+        const itemsToUpdate = db.collection('items');
+        for (var i = 0; i < items.length; i++){
+            itemsToUpdate.where(firebase.firestore.FieldPath.documentId(), 
+            '==', 
+            items[i].id
+            );
+        }
+        const query = await itemsToUpdate.get();
+        console.log(query);
+        console.log(query.docs)
+        query.docs.forEach((docSnapshot, idx) => {
+            console.log(idx);
+            console.log(docSnapshot.data());
+            if (idx < items.length)
+                batch.update(docSnapshot.ref, { stock: docSnapshot.data().stock - items[idx].count})
+        })
+
+        batch.commit().then(r => r);
+
+        console.log("Compra exitosa, su numero de orden es: ",idUser);
+
+    }
+
+   
+    const onSubmit = (data, e) => {
+        console.log(data);
+        setUser([
+            ...user,
+            data
+        ])
+        e.target.reset()
+
         const db = getFirestore();
         const orders = db.collection("orders");
         const newOrder = {
@@ -27,25 +63,32 @@ export default function Checkout() {
             date: firebase.firestore.Timestamp.fromDate(new Date()),
         }
 
+        console.log(cart);
+
         orders.add(newOrder)
         .then(({ id }) => {
-            createAlert(id);
+            console.log(id);
+            console.log(idUser);
+            setIduser(id);
+            console.log("userId: ", id);
+            console.log(idUser);
         })
         .catch(err => {
             console.log('Error saving info: ', err);
         })
         .finally(() => {
-            cleanCart();
             setLoading(false);
+            console.log("CARRITO: ", cart);
+            updateStock(newOrder, cart, idUser);
         });
+    }
 
-    })
 
     useEffect (() => {
         // eslint-disable-next-line no-unused-vars
         const timer = setTimeout(() => {
             setLoading(true);
-        }, 1000);
+        }, 2000);
     })
 
     function CheckoutOrder() {
@@ -56,35 +99,75 @@ export default function Checkout() {
                 <Row>
                     <Col sm={8}>
                         <h4>Detalles de facturación</h4>
-                        <Form classname="form" onSubmit={handleSubmit(onSubmit)}>
+                        <Form className="form" onSubmit={handleSubmit(onSubmit)}>
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridName" width="25%">
-                                    <Form.Label>Nombres</Form.Label>
-                                    <Form.Control classname="w-50 p-3" type="name" name="nameuser" ref={register} />
+                                    <Form.Label>Nombres <span style={{color: "red"}}>*</span></Form.Label>
+                                    <Form.Control 
+                                        name="user" 
+                                        type="text" 
+                                        ref={register({ 
+                                            required: {
+                                                value: true,
+                                                message: "Este campo es requerido"
+                                            }
+                                            })} style={{  borderColor: errors.nameuser && "red"}}/>
+                                        {errors.nameuser && <p className="error">{errors.nameuser.message}</p>}
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridLastName">
-                                    <Form.Label>Apellidos</Form.Label>
-                                    <Form.Control type="lastname" name="lastname" ref={register}/>
+                                    <Form.Label>Apellidos <span style={{color: "red"}}>*</span></Form.Label>
+                                    <Form.Control 
+                                        name="lastname" 
+                                        type="text" 
+                                        ref={register({ 
+                                            required: {
+                                                value: true,
+                                                message: "Este campo es requerido"
+                                            }
+                                            })} style={{  borderColor: errors.lastname && "red"}}/>
+                                {errors.lastname && <p className="error">{errors.lastname.message}</p>}
                                 </Form.Group>
                             </Form.Row>
 
                             <Form.Row>
                                 <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" name="email" ref={register}/>
+                                    <Form.Label>Email <span style={{color: "red"}}>*</span></Form.Label>
+                                    <Form.Control 
+                                        name="email" 
+                                        type="text"
+                                        ref={register({ 
+                                            required: {
+                                                value: true,
+                                                message: "Ingrese un email"
+                                            },
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                                                message: "Ingrese una dirección de email valida"
+                                            },
+                                        })} style={{  borderColor: errors.email && "red"}}/>
+                                    {errors.email && <p className="error">{errors.email.message}</p>}
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridPhone">
-                                    <Form.Label>Telefono</Form.Label>
-                                    <Form.Control type="phone" name="phone" ref={register}/>
+                                    <Form.Label>Teléfono <span style={{color: "red"}}>*</span></Form.Label>
+                                    <Form.Control 
+                                        name="phone" 
+                                        type="text"
+                                        ref={register({ 
+                                            required: {
+                                                value: true,
+                                                message: "Ingrese un teléfono"
+                                        }
+                                        })} style={{  borderColor: errors.phone && "red"}}/>
+                                     {errors.phone && <p className="error">{errors.phone.message}</p>}
                                 </Form.Group>
                             </Form.Row>
+                            
 
                             <Form.Group controlId="formGridAddress1">
                                 <Form.Label>Dirección</Form.Label>
                                 <Form.Control name="adress1" placeholder="Nombre de la calle y altura" ref={register}/>
-                                {errors.firstName && "First name is required"}
                             </Form.Group>
 
                             <Form.Group controlId="formGridAddress2">
@@ -99,7 +182,7 @@ export default function Checkout() {
 
                                 <Form.Group as={Col} controlId="formGridZip">
                                     <Form.Label>Código Postal</Form.Label>
-                                    <Form.Control name="zipcode" ref={register}/>
+                                    <Form.Control name="zipcode" ref={register} />
                                 </Form.Group>
                             </Form.Row>
 
@@ -115,7 +198,7 @@ export default function Checkout() {
                                 </Form.Group>
                             </Form.Row>
 
-                            <Button type="submit">COMPRAR AHORA</Button>
+                            <Button type="submit">Comprar ahora</Button>
                         </Form>
                     </Col>
                     <Col sm={4}>
@@ -123,14 +206,14 @@ export default function Checkout() {
                         <br></br>
                         <ListGroup>
                             {cart.map(cartItem => (
-                                <>
+                                <React.Fragment key={cartItem.product.id}>
                                     <ListGroup.Item> 
                                         {cartItem.product.name + " x " + cartItem.count + " uds."} 
                                     </ListGroup.Item>
-                                </>
+                                </React.Fragment>
                             ))}
                             <ListGroup.Item>
-                                {"Total: $" + totalPrice()}      
+                                {"Total: $" + totalPrice()}   
                             </ListGroup.Item>
                         </ListGroup>
                     </Col>

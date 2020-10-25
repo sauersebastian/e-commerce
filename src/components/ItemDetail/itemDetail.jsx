@@ -27,14 +27,13 @@ export default function ItemDetail(props) {
     }
 
     function ItemWithStock() {
-        console.log(props.product.stock);
         return (
             <div>
                 <Container>
                     <Card>
                         <Row>
                             <Col>
-                                <Card.Img classname="photo" variant="top" src={props.product.img} alt=""/>
+                                <Card.Img className="photo" variant="top" src={props.product.img} alt=""/>
                             </Col>
                             <Col>
                                 <Card.Body>
@@ -53,7 +52,7 @@ export default function ItemDetail(props) {
                                                 <ItemCount addCount={addCount} subCount={subCount} count={count} max={props.product.stock}/>
                                             </Col>
                                             <Col>
-                                                <Button variant="primary" onClick={addToCart}>Comprar {count} ahora</Button>
+                                                <Button variant="outline-primary" onClick={addToCart}>Comprar {count} ahora</Button>
                                             </Col>
                                         </Row>
                                     </Container>
@@ -67,14 +66,13 @@ export default function ItemDetail(props) {
     }
 
     function ItemWithoutStock() {
-        console.log(props.product.stock);
         return (
             <div>
                 <Container>
                     <Card>
                         <Row>
                             <Col>
-                                <Card.Img classname="photo" variant="top" src={props.product.img} alt=""/>
+                                <Card.Img className="photo" variant="top" src={props.product.img} alt=""/>
                             </Col>
                             <Col>
                                 <Card.Body>
