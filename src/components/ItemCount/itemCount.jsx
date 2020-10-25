@@ -16,8 +16,8 @@ export default function ItemCount({count, addCount, subCount, max}){
                                 <span className="fa fa-minus">-</span>
                             </Button>
                         </span>
-                        <input type="text" name="quant[1]" className="form-control input-number col-xs-2" value={count} min="1" max={max}/>
-                        <span class="input-group-append">
+                        <input type="text" name="quant[1]" className="form-control input-number col-xs-2" defaultValue={count} min="1" max={max}/>
+                        <span className="input-group-append">
                             <Button type="button" className="btn btn-outline-secondary btn-number" data-type="plus" onClick={ () => addCount(count + 1)} sign={"+"}>
                                 <span className="fa fa-plus">+</span>
                             </Button>

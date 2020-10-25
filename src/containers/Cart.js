@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCartContext } from '../context/cartContext'
 import { Link } from 'react-router-dom';
-import { ListGroup, Container, Spinner } from 'react-bootstrap';
-import Button from '../components/Button/Button'
+import { ListGroup, Container, Spinner, Row, Col, Button } from 'react-bootstrap';
 
 
 export default function Cart() {
@@ -26,25 +25,68 @@ export default function Cart() {
                 <h3> Tienes {length() === 1 ? length()+" item" : length()+" items"} en tu carrito</h3>
                 <br></br>
                 <ListGroup>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col sm>
+                                Productos
+                            </Col>
+                            <Col sm>
+                                Precio Unitario
+                            </Col>
+                            <Col sm>
+                                Cantidad
+                            </Col>
+                            <Col sm>
+                                Subtotal
+                            </Col>
+                            <Col sm>
+                            </Col>
+                        </Row>
+                    </ListGroup.Item>
                     {cart.map(cartItem => (
-                        <>
-                            <ListGroup.Item classname="">
-                                {cartItem.product.name + "- " + 
-                                "$" + cartItem.product.price + " x " + cartItem.count + " = $" + (cartItem.count* parseFloat(cartItem.product.price))}
-                            </ListGroup.Item>
-                            {<Button onClick={() =>removeItem(cartItem.product)} sign={"Eliminar producto"}> </Button>}
-                        </>
+                        <React.Fragment key={cartItem.product.id}>
+                        <ListGroup.Item >
+                            <Row >
+                                <Col sm>
+                                    {cartItem.product.name}
+                                </Col>
+                                <Col sm>
+                                    ${cartItem.product.price}
+                                </Col>
+                                <Col sm>
+                                    {cartItem.count}
+                                </Col>
+                                <Col sm>
+                                    ${(cartItem.count* parseFloat(cartItem.product.price))}
+                                </Col>
+                                <Col sm>
+                                    <Button onClick={() =>removeItem(cartItem.product)} variant="outline-danger" size="sm">Eliminar producto</Button>
+                                </Col>
+                            </Row>
+                            </ListGroup.Item> 
+                        </React.Fragment>
                     ))}
-                </ListGroup>
-                <br></br>
-                <ListGroup>
-                    <h4>Total: ${totalPrice()}</h4>
-                    <Button onClick={cleanCart} sign={"VACIAR CARRITO" }/>
-                    <Link to={`/checkout`}>
-                        <Button sign={"IR A FINALIZAR LA COMPRA"}> </Button>
-                    </Link>
-                </ListGroup>
-            </Container>
+                    <ListGroup.Item>
+                        <Row>
+                            <Col sm>
+                                <Button onClick={cleanCart} variant="outline-danger">Vaciar Carrito</Button>
+                            </Col>
+                            <Col sm>
+                            </Col>
+                            <Col sm>
+                            </Col>
+                            <Col sm>
+                            <h6><strong>Total: ${totalPrice()}</strong></h6>
+                            </Col>
+                            <Col sm>
+                            <Link to={`/checkout`}>
+                                <Button variant="outline-primary">Finalizar Compra</Button>
+                            </Link>
+                            </Col>
+                        </Row>
+                    </ListGroup.Item>
+            </ListGroup>
+        </Container>
         );
     };
 
