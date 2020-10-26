@@ -5,7 +5,7 @@ import { getFirestore } from "../firebase";
 import { Spinner } from "react-bootstrap";
 import Error from "../pages/error"
 
-
+/* Contenedor para la vista del detalle de un producto  */
 
 export default function ItemDetailContainer() {
     const { id } = useParams();
@@ -14,7 +14,6 @@ export default function ItemDetailContainer() {
     const [itemFound, setItemFound] = useState(false);
 
     useEffect(() => {
-
         // eslint-disable-next-line no-unused-vars
         const timer = setTimeout(() => {
             setLoading(true);

@@ -11,14 +11,13 @@ export default function Cart() {
     const [loading, setLoading] = useState(false)
 
     useEffect (() => {
-        
         // eslint-disable-next-line no-unused-vars
         const timer = setTimeout(() => {
             setLoading(true);
         }, 1000);
     })
 
-    
+    /* Función que muestra los items en el carrito */
     const ItemsInCart = () => {
         return (
             <Container>
@@ -90,6 +89,7 @@ export default function Cart() {
         );
     };
 
+    /* Función que muestra si el carrito está vacío */
     const EmptyCart = () => {
         return (
             <div>

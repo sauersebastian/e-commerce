@@ -4,6 +4,8 @@ import { getFirestore } from '../firebase/';
 import { useParams } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 
+/* Contenedor para la vista del listado completo de productos de una categoria en particular  */
+
 export default function ItemListContainer() {
 
     const { id } = useParams()  

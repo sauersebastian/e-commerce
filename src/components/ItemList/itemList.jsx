@@ -6,8 +6,6 @@ import "./itemList.css";
 
 export default function ItemList(props) {
 
-
-
     const productos = props.items;
     return (
         <Container className="conteinerList">

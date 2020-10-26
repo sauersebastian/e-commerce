@@ -23,7 +23,7 @@ export default function Checkout() {
         }, 2000);
     })
 
-    async function updateStock(order){
+    async function updateStock(order){ /* Actualización del stock de los productos en la base de datos */
         const db = getFirestore();
         const batch = db.batch();
         const items = order.items.map(i => ({ id: i.product.id, count: i.count}));
@@ -32,7 +32,6 @@ export default function Checkout() {
             items.map((i) => i.id)
             );
         
-
         const query = await itemsToUpdate.get();
         query.docs.forEach((docSnapshot, idx) => {
             if (idx < items.length)
@@ -44,7 +43,7 @@ export default function Checkout() {
     }
 
    
-    const onSubmit = (data, e) => {
+    const onSubmit = (data, e) => { /* Creación del documento que contiene la compra realizada */
         setUser([
             ...user,
             data
@@ -78,6 +77,7 @@ export default function Checkout() {
 
     },[userId]);
 
+    /* Función que da feedback del id de la compra generada */
     function ReturnId(){
         return (
             <Container>
@@ -90,7 +90,7 @@ export default function Checkout() {
         )
     }
 
-
+    /* Función para el formulario de compra */
     function CheckoutOrder() {
 
         return (

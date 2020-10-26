@@ -1,68 +1,70 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Yogamar
 
-## Available Scripts
+Este proyecto fue realizado para la entrega final del curso de React JS dictado por Coderhouse entre agosto y octubre del 2020.
 
-In the project directory, you can run:
+El proyecto se trata de un e-commerce de venta de productos para hacer yoga.
 
-### `npm start`
+## Comenzando 🚀
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Para obtener una copia del proyecto basta con clonar el repositorio desde GitHub.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Pre-requisitos 📋
 
-### `npm test`
+El proyecto fue desarrollado con React JS, por lo cual para poder ejercutarlo localmente se necesitara instalar: Node JS y React.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Instalación 🔧
 
-### `npm run build`
+Para instalar el proyecto:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clone el repositorio, abra la consola y ejecute:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+git clone https://github.com/sauersebastian/e-commerce.git
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Situese dentro de la carpeta que se creo e instale las dependecias para poder ejecutar el proyecto correctamente:
 
-### `npm run eject`
+```
+cd e-commerce
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Ejecutando el proyect ⚙️
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para ejecutar el proyect utilice el comando:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm start
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Que corre la aplicación en modo desarrollador.<br />
+Abra [http://localhost:3000](http://localhost:3000) en su navegador para ver la aplicación funcionandp.
 
-## Learn More
+La página se recargará si realizas cambios en el códodigo y los guardas.<br />
+Podrás ver los errores que existan en la consola.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![](https://github.com/sauersebastian/e-commerce/blob/master/src/assets/final.gif)
 
-### Code Splitting
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Construido con 🛠️
 
-### Analyzing the Bundle Size
+* [React-Bootstrap](https://react-bootstrap.github.io/) - El framework web usado
+* [React Hook Form](https://react-hook-form.com/) - Para el manejo del formulario del checkout
+* [Firebase](firebase.google.com/) - Para alojar los productos de la tienda y realizar las peticiones a la base de datos,
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Versionado 📌
 
-### Making a Progressive Web App
+Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+## Autores ✒️
 
-### Advanced Configuration
+* **Sebastián Sauer Rosas** - *Líder del Proyecto, Programador y Diseñador* - [sauersebastian](https://github.com/sauersebastian)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Expresiones de Gratitud 🎁
 
-### Deployment
+* Comenta a otros sobre este proyecto 📢
+* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
+* Da las gracias públicamente 🤓.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

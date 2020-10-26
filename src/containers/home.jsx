@@ -4,15 +4,14 @@ import ItemList from '../components/ItemList/itemList';
 import { getFirestore } from '../firebase';
 import { Spinner, Container } from "react-bootstrap";
 
+/* Contenedor para la vista del listado completo de productos  */
+
 export default function Home () {
 
     const [items, setItems] = useState([])
     const [loading, setLoading] = useState(false)
 
-    
-
     useEffect(() => {
-
         // eslint-disable-next-line no-unused-vars
         const timer = setTimeout(() => {
             setLoading(true);
