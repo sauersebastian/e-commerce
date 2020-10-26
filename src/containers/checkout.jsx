@@ -23,8 +23,7 @@ export default function Checkout() {
         }, 2000);
     })
 
-    async function updateStock(order, id){
-        console.log(id);
+    async function updateStock(order){
         const db = getFirestore();
         const batch = db.batch();
         const items = order.items.map(i => ({ id: i.product.id, count: i.count}));
@@ -42,7 +41,6 @@ export default function Checkout() {
 
         batch.commit().then(r => r);
         cleanCart();
-        console.log(idGen);
     }
 
    
@@ -225,12 +223,10 @@ export default function Checkout() {
     }
 
     if (userId === '' && length() === 0 ) {
-        console.log("!!!!",userId)
         return <Redirect to={`/`} />
     }
     else{
         if (userId !== '' && length() === 0){
-            console.log("'''!!!!'''",userId)
             return <ReturnId />
         }
         else {
