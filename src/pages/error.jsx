@@ -1,14 +1,15 @@
 import React from 'react';
 import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 
 export default function error() {
     return (
         <div>
             <br></br>
-            <h2>El producto que estas buscando no existe :(</h2>
+            <h4>El producto que estas buscando no existe :(</h4>
             <br></br>
-            <Button href="/">Volver al sitio</Button>
+            <Link to='/'><Button >Volver al sitio</Button></Link>
         </div>
     )
 }

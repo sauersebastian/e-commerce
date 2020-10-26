@@ -4,8 +4,7 @@ import { useCartContext } from '../context/cartContext';
 import * as firebase from 'firebase/app';
 import { getFirestore } from '../firebase/';
 import { useForm } from "react-hook-form";
-import { Redirect } from "react-router-dom";
-
+import { Redirect, Link } from "react-router-dom";
 
 
 export default function Checkout() {
@@ -14,40 +13,40 @@ export default function Checkout() {
     const { register, errors, handleSubmit} = useForm();
     const [user, setUser] = useState([])
     const [loading, setLoading] = useState(false);
-    const [idUser, setIduser] = useState('');
+    const [userId, setUserid] = useState('');
+    var idGen = '';
 
-    async function updateStock(order, cart, id){
+    useEffect (() => {
+        // eslint-disable-next-line no-unused-vars
+        const timer = setTimeout(() => {
+            setLoading(true);
+        }, 2000);
+    })
+
+    async function updateStock(order, id){
+        console.log(id);
         const db = getFirestore();
         const batch = db.batch();
         const items = order.items.map(i => ({ id: i.product.id, count: i.count}));
-        console.log(items);
-        console.log(items.length);
-        const itemsToUpdate = db.collection('items');
-        for (var i = 0; i < items.length; i++){
-            itemsToUpdate.where(firebase.firestore.FieldPath.documentId(), 
-            '==', 
-            items[i].id
+        const itemsToUpdate = db.collection('items').where(firebase.firestore.FieldPath.documentId(), 
+            'in', 
+            items.map((i) => i.id)
             );
-        }
+        
+
         const query = await itemsToUpdate.get();
-        console.log(query);
-        console.log(query.docs)
         query.docs.forEach((docSnapshot, idx) => {
-            console.log(idx);
-            console.log(docSnapshot.data());
             if (idx < items.length)
                 batch.update(docSnapshot.ref, { stock: docSnapshot.data().stock - items[idx].count})
         })
 
         batch.commit().then(r => r);
-
-        console.log("Compra exitosa, su numero de orden es: ",idUser);
-
+        cleanCart();
+        console.log(idGen);
     }
 
    
     const onSubmit = (data, e) => {
-        console.log(data);
         setUser([
             ...user,
             data
@@ -63,33 +62,36 @@ export default function Checkout() {
             date: firebase.firestore.Timestamp.fromDate(new Date()),
         }
 
-        console.log(cart);
-
         orders.add(newOrder)
         .then(({ id }) => {
-            console.log(id);
-            console.log(idUser);
-            setIduser(id);
-            console.log("userId: ", id);
-            console.log(idUser);
+            idGen = id;
+            setUserid(idGen);
         })
         .catch(err => {
             console.log('Error saving info: ', err);
         })
         .finally(() => {
             setLoading(false);
-            console.log("CARRITO: ", cart);
-            updateStock(newOrder, cart, idUser);
+            updateStock(newOrder, idGen);
         });
     }
 
+    useEffect(() => {
 
-    useEffect (() => {
-        // eslint-disable-next-line no-unused-vars
-        const timer = setTimeout(() => {
-            setLoading(true);
-        }, 2000);
-    })
+    },[userId]);
+
+    function ReturnId(){
+        return (
+            <Container>
+                <br></br>
+                <h4>Compra exitosa, se registro con el código: </h4>
+                <h4>{userId}</h4>
+                <br></br>
+                <Link to='/'><Button variant="outline-primary">Volver al sitio</Button></Link>
+            </Container>    
+        )
+    }
+
 
     function CheckoutOrder() {
 
@@ -222,16 +224,22 @@ export default function Checkout() {
         );
     }
 
-    if (!length()) {
+    if (userId === '' && length() === 0 ) {
+        console.log("!!!!",userId)
         return <Redirect to={`/`} />
-    } 
-    else {
-        if (!loading){
-            return <Spinner animation="border" variant="warning" />
+    }
+    else{
+        if (userId !== '' && length() === 0){
+            console.log("'''!!!!'''",userId)
+            return <ReturnId />
         }
         else {
-            return <CheckoutOrder />
+            if (!loading){
+                return <Spinner animation="border" variant="warning" />
+            }
+            else {
+                return <CheckoutOrder />
+            }
         }
-
     }
 }
