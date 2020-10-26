@@ -70,10 +70,6 @@ Podrás ver los errores que existan en la consola.
 
 
 
-## Expresiones de Gratitud 🎁
 
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
 
 
