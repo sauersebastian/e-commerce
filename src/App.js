@@ -9,7 +9,6 @@ import { CartProvider } from './context/cartContext'
 import ItemListContainer from './containers/itemListContainer';
 import Checkout from './containers/checkout';
 
-
 function App() {
   
   
